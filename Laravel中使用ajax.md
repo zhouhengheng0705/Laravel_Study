@@ -1,18 +1,20 @@
 
-##路由设置
+## 路由设置
 
 ```
 Route::get('/admin/result/{questionId}', 'Admin\ResultController@index');
 
 Route::match(['get', 'post'], '/admin/result/ajax/{questionId}', 'Admin\ResultController@ajax');
 
+```
 
 
+
+## Controllerの中で閲覧画面を表示
 
 /Controllers/admin/ResultController.php
 
-// 閲覧画面を表示
-
+```
 public function index(Request $request, $questionId){
 
     $questionInfo = Question::where('id', $questionId)->first();
@@ -40,26 +42,18 @@ public function ajax(Request $request, $questionId){
     return response()->json($json);
 
 }
+```
 
 
 
-
-
+## View
 
 /views/admin/result/index.blade.php
 
-
-
+```
 @extends('layouts.parent')
-
 @include('layouts.head')
-
-
-
 @section('content')
-
-
-
 @section('header')
 
 <header>
@@ -105,25 +99,16 @@ public function ajax(Request $request, $questionId){
 @endsection
 
 </main>
-
-
-
 @endsection
-
-
-
 @include('layouts.footer')
+```
 
 
-
-
-
-
+## JavaScriptロジック
 
 /js/admin/result/comment.js
 
-
-
+```
 $(function(){
 
     get_data()
@@ -175,15 +160,10 @@ function get_data(){
     })
 
     .fail(function(){
-
-            
-
-    })
-
-    
+    }) 
 
     // 5秒ごとに更新
-
     setTimeout("get_data()", 5000);
-
 }
+
+```
